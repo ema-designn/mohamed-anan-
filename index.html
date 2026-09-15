@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohamed &amp; Anan — Wedding</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Parisienne&family=Cormorant+Garamond:wght@400;500;600;700&family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap');
+
+:root{
+  --burgundy:#4a0e16;
+  --burgundy-deep:#2c070d;
+  --burgundy-light:#7a2231;
+  --burgundy-soft:#5e1620;
+  --beige:#f8efe1;
+  --beige-soft:#f0e2c9;
+  --gold:#c9a24b;
+  --gold-light:#e6cf98;
+  --ink:#2a1210;
+  --serif-en:'Cormorant Garamond', serif;
+  --script-en:'Parisienne', cursive;
+  --serif-ar:'Amiri', serif;
+  --sans-ar:'Cairo', sans-serif;
+
+  /* ↓↓↓ PASTE YOUR PINTEREST IMAGE LINK HERE (between the quotes) ↓↓↓ */
+  --rsvp-bg-image: url('https://i.pinimg.com/1200x/40/0f/9e/400f9e1c14872390898339fcfde44030.jpg');
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+html{scroll-behavior:smooth;}
+
+/* يتم إيقاف التمرير في البداية حتى ينتهي فيديو الغلاف */
+body{
+  background:var(--burgundy);
+  color:var(--ink);
+  font-family:var(--sans-ar);
+  overflow-x:hidden;
+  overflow-y:hidden; 
+  height:100vh;
+}
+body.intro-finished {
+  overflow-y:auto;
+  height:auto;
+}
+
+html[dir="ltr"] body{ font-family:var(--serif-en); }
+
+/* ============ INTRO SCREEN (COVER) ============ */
+#intro-screen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  background-color: var(--burgundy-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 1s ease, visibility 1s ease;
+}
+#introVideo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+#introImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 2;
+  cursor: pointer;
+  transition: opacity 0.8s ease;
+}
+
+/* Tracked labels */
+.tracked{ font-size:.85rem; }
+html[dir="ltr"] .tracked{ letter-spacing:3px; text-transform:uppercase; }
+html[dir="rtl"] .tracked{ letter-spacing:.5px; }
+
+.section{ position:relative; width:100%; padding:110px 24px; overflow:hidden; }
+.center{ max-width:640px; margin:0 auto; text-align:center; }
+
+/* reveal animation */
+.reveal{ opacity:0; transform:translateY(24px); transition:opacity .9s ease, transform .9s ease; }
+.reveal.in{ opacity:1; transform:translateY(0); }
+
+/* ============ LANGUAGE TOGGLE ============ */
+.lang-toggle{
+  position:fixed; top:22px; z-index:500;
+  inset-inline-end:22px;
+  display:flex; align-items:center; gap:6px;
+  background:rgba(20,6,9,.55);
+  border:1px solid rgba(230,207,152,.6);
+  border-radius:999px;
+  padding:6px;
+  backdrop-filter:blur(6px);
+  cursor:pointer;
+  animation:floatBtn 3.2s ease-in-out infinite;
+}
+@keyframes floatBtn{
+  0%,100%{ transform:translateY(0); box-shadow:0 0 0 rgba(201,162,75,0); }
+  50%{ transform:translateY(-4px); box-shadow:0 6px 18px rgba(201,162,75,.35); }
+}
+.lang-toggle span{
+  padding:7px 14px; border-radius:999px; font-size:.8rem; font-weight:600;
+  color:var(--beige-soft); transition:all .3s ease; font-family:var(--sans-ar);
+}
+.lang-toggle span.active{ background:var(--gold); color:var(--burgundy-deep); }
+
+/* ============ HERO ============ */
+.hero{
+  height:100vh; min-height:640px; padding:0;
+  display:flex; align-items:center; justify-content:center;
+}
+.hero video{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;
+}
+.hero-overlay{
+  position:absolute; inset:0; z-index:1;
+  background:linear-gradient(180deg, rgba(20,6,9,.55) 0%, rgba(20,6,9,.35) 45%, rgba(20,6,9,.7) 100%);
+}
+.hero-content{ position:relative; z-index:2; text-align:center; color:var(--beige); padding:0 20px; }
+.eyebrow-script{ font-family:var(--script-en); font-size:clamp(2.6rem,7vw,4.2rem); color:#fff; line-height:1; margin-bottom:14px; }
+html[dir="rtl"] .eyebrow-script{ font-family:var(--serif-ar); font-size:clamp(2rem,6vw,3rem); }
+.tagline{ color:rgba(255,255,255,.85); margin-bottom:26px; }
+.couple-names{ font-family:var(--serif-en); font-weight:600; font-size:clamp(2.6rem,8vw,4.6rem); display:flex; gap:18px; justify-content:center; align-items:center; flex-wrap:wrap; }
+html[dir="rtl"] .couple-names{ font-family:var(--serif-ar); }
+.couple-names .amp{ font-family:var(--script-en); color:var(--gold-light); font-size:.7em; }
+.hero-divider{ width:70px; height:1px; background:var(--gold); margin:22px auto; }
+.hero-date{ font-family:var(--serif-en); font-size:1.15rem; margin-bottom:8px; }
+html[dir="rtl"] .hero-date{ font-family:var(--sans-ar); }
+.hero-venue{ font-size:.8rem; color:var(--gold-light); }
+.scroll-cue{ position:absolute; bottom:26px; left:50%; transform:translateX(-50%); z-index:2; width:1px; height:34px; background:linear-gradient(var(--gold),transparent); }
+
+/* ============ INVITATION ============ */
+.invitation{
+  background-size:cover; background-position:center; background-color:var(--burgundy-deep);
+  display:flex; align-items:center; justify-content:center; min-height:100vh;
+}
+.invitation::before{
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(20,6,9,.35) 0%, rgba(20,6,9,.5) 55%, rgba(20,6,9,.65) 100%);
+}
+.invitation-card{ position:relative; z-index:1; }
+.invitation-card{
+  max-width:850px; 
+  width:100%; 
+  padding:0 60px; 
+  text-align:center;
+}
+.heart-icon{ color:var(--gold-light); font-size:1.4rem; margin-bottom:18px; text-shadow:0 2px 10px rgba(0,0,0,.5); }
+.invite-lead{ font-family:var(--serif-ar); font-size:1.6rem; font-weight:700; margin-bottom:12px; color:var(--gold-light); text-shadow:0 2px 10px rgba(0,0,0,.55); }
+html[dir="ltr"] .invite-lead{ font-family:var(--serif-en); }
+.invite-body{ font-size:1.1rem; line-height:1.9; margin-bottom:30px; color:#fff; text-shadow:0 2px 10px rgba(0,0,0,.55); }
+.invite-couple{ font-family:var(--serif-ar); font-size:clamp(1.7rem,5vw,2.3rem); color:#fff; margin-bottom:26px; display:flex; gap:14px; align-items:center; justify-content:center; flex-wrap:wrap; text-shadow:0 2px 14px rgba(0,0,0,.6); }
+html[dir="ltr"] .invite-couple{ font-family:var(--serif-en); }
+.invite-couple .amp{ font-family:var(--script-en); color:var(--gold-light); }
+.invite-closing{ font-size:.95rem; line-height:1.9; color:var(--beige-soft); text-shadow:0 2px 10px rgba(0,0,0,.55); }
+
+/* ستايل الملاحظة اللطيفة أسفل سكشن الدعوة */
+.kids-notice-invite{
+  font-family: var(--serif-ar);
+  font-size: 1.25rem;
+  color: var(--gold-light);
+  margin-top: 20px;
+  font-style: italic;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 10px rgba(0,0,0,.6);
+}
+html[dir="ltr"] .kids-notice-invite{ font-family: var(--serif-en); }
+
+/* ============ ADULTS ONLY SECTION ============ */
+.adults-only {
+  background: var(--burgundy);
+  text-align: center;
+  padding: 80px 24px 40px;
+}
+.adults-box {
+  max-width: 620px;
+  margin: 0 auto;
+  border: 1px solid var(--gold);
+  padding: 38px 28px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.22);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(4px);
+}
+.adults-intro {
+  font-family: var(--serif-ar);
+  font-size: clamp(1.1rem, 3.2vw, 1.35rem);
+  line-height: 2.1;
+  color: var(--beige);
+  margin-bottom: 16px;
+}
+html[dir="ltr"] .adults-intro { font-family: var(--serif-en); }
+
+.adults-highlight {
+  font-family: var(--serif-ar);
+  font-size: clamp(1.25rem, 3.8vw, 1.5rem);
+  font-weight: 700;
+  color: var(--gold-light);
+  margin: 18px 0;
+  line-height: 1.8;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+html[dir="ltr"] .adults-highlight { font-family: var(--serif-en); }
+
+.adults-closing {
+  font-family: var(--serif-ar);
+  font-size: clamp(1.05rem, 3vw, 1.25rem);
+  line-height: 2;
+  color: var(--beige-soft);
+}
+html[dir="ltr"] .adults-closing { font-family: var(--serif-en); }
+
+/* ============ AYAH ============ */
+.ayah{ background:var(--burgundy); text-align:center; }
+.ayah-ornament{ color:var(--gold-light); font-size:1.4rem; margin-bottom:22px; }
+.ayah-box{ max-width:620px; margin:0 auto; border:1px solid var(--gold); padding:44px 30px; border-radius:2px; background:rgba(0,0,0,.12); }
+.ayah-text{ font-family:var(--serif-ar); font-size:clamp(1.3rem,3.6vw,1.85rem); line-height:2.4; color:#fff; }
+.ayah-ref{ margin-top:20px; font-family:var(--serif-ar); color:var(--gold-light); font-size:1rem; }
+.ayah-translation{ margin-top:22px; font-family:var(--serif-en); font-style:italic; color:var(--beige-soft); font-size:.95rem; line-height:1.7; display:none; }
+html[dir="ltr"] .ayah-translation{ display:block; }
+html[dir="ltr"] .ayah-text{ font-size:clamp(1.15rem,3vw,1.5rem); }
+
+/* ============ PARTY INFO ============ */
+.party-info{ background:var(--burgundy); color:var(--beige); text-align:center; }
+.pi-eyebrow{ color:var(--gold-light); margin-bottom:10px; }
+.pi-sub{ font-size:1.1rem; margin-bottom:22px; }
+.pi-time{ font-family:var(--serif-en); font-size:1.3rem; color:#fff; margin-bottom:22px; }
+html[dir="rtl"] .pi-time{ font-family:var(--sans-ar); }
+.pi-date-block{ display:flex; align-items:center; justify-content:center; gap:16px; margin-bottom:26px; }
+.pi-day{ font-family:var(--serif-en); font-size:4.2rem; color:#fff; line-height:1; }
+.pi-month-year{ font-size:.9rem; letter-spacing:2px; color:var(--gold-light); text-align:start; line-height:1.5; }
+.pi-countdown-label{ color:var(--gold-light); margin-bottom:6px; }
+.pi-countdown-live{ font-family:var(--serif-en); font-size:1.05rem; margin-bottom:36px; color:#fff; }
+.calendar{ max-width:340px; margin:0 auto; background:rgba(0,0,0,.15); border:1px solid var(--gold); border-radius:14px; padding:24px 18px; color:var(--beige-soft); }
+.calendar-title{ font-family:var(--script-en); font-size:1.6rem; color:var(--gold-light); margin-bottom:16px; }
+html[dir="rtl"] .calendar-title{ font-family:var(--serif-ar); font-size:1.3rem; }
+.calendar-grid{ display:grid; grid-template-columns:repeat(7,1fr); gap:8px; font-size:.8rem; }
+.calendar-grid .dow{ color:var(--gold-light); font-weight:600; padding-bottom:6px; }
+.calendar-grid .day{ padding:6px 0; position:relative; }
+.calendar-grid .day.marked{ color:#fff; font-weight:700; }
+.calendar-grid .day.marked::before{
+  content:''; position:absolute; inset:-5px; z-index:-1;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 29'><path fill='%23c9a24b' d='M16 29C16 29 0 19.2 0 9.3 0 3.4 4.4 0 8.9 0c3 0 5.6 1.5 7.1 4 1.5-2.5 4.1-4 7.1-4C27.6 0 32 3.4 32 9.3 32 19.2 16 29 16 29z'/></svg>");
+  background-repeat:no-repeat; background-position:center; background-size:100% 100%;
+}
+
+/* ============ COUNTDOWN ============ */
+.countdown-section{ background:var(--burgundy); text-align:center; }
+.countdown-section h2{ font-family:var(--script-en); font-size:clamp(2rem,5vw,2.8rem); color:var(--gold-light); margin-bottom:14px; }
+html[dir="rtl"] .countdown-section h2{ font-family:var(--serif-ar); font-size:clamp(1.6rem,4vw,2.1rem); }
+.countdown-section p{ margin-bottom:40px; color:var(--beige-soft); }
+.countdown-grid{ display:flex; gap:16px; justify-content:center; flex-wrap:nowrap; direction:ltr; }
+.cd-box{ background:rgba(0,0,0,.15); border:1px solid var(--gold-light); border-radius:12px; padding:20px 22px; min-width:86px; flex:1; max-width:110px;}
+.cd-box span{ display:block; font-family:var(--serif-en); font-size:2.1rem; color:#fff; }
+.cd-box label{ display:block; margin-top:6px; font-size:.8rem; color:var(--gold-light); }
+
+/* ============ DETAILS ============ */
+.details{ background:var(--burgundy); text-align:center; }
+.details h2{ font-family:var(--script-en); font-size:clamp(2rem,5vw,2.8rem); color:var(--gold-light); margin-bottom:8px; }
+html[dir="rtl"] .details h2{ font-family:var(--serif-ar); font-size:clamp(1.6rem,4vw,2.1rem); }
+.details-sub{ color:var(--beige-soft); margin-bottom:36px; }
+.details-photo{
+  max-width:520px; height:280px; margin:0 auto 40px; border-radius:16px;
+  overflow:hidden; border:1px solid var(--gold);
+  box-shadow:0 16px 40px rgba(0,0,0,.3);
+}
+.details-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+.details-rows{ max-width:480px; margin:0 auto; text-align:start; }
+.detail-row{ display:flex; gap:16px; align-items:flex-start; padding:18px 0; border-bottom:1px solid rgba(230,207,152,.3); }
+.detail-row .icon{ color:var(--gold-light); font-size:1.2rem; margin-top:2px; }
+.d-label{ font-size:.85rem; color:var(--gold-light); margin-bottom:4px; }
+.d-value{ font-size:1.02rem; color:#fff; line-height:1.6; }
+
+/* ============ LOCATION ============ */
+.location{ background:var(--burgundy); text-align:center; }
+.location h2{ font-family:var(--serif-en); font-size:clamp(1.6rem,4vw,2.1rem); color:var(--gold-light); margin-bottom:6px; }
+html[dir="rtl"] .location h2{ font-family:var(--serif-ar); }
+.location p{ color:var(--beige-soft); margin-bottom:26px; }
+.map-frame{ max-width:560px; margin:0 auto 26px; border-radius:16px; overflow:hidden; box-shadow:0 16px 40px rgba(0,0,0,.3); border:1px solid var(--gold); }
+.map-frame iframe{ width:100%; height:320px; border:0; display:block; }
+.map-btn{ display:inline-block; background:linear-gradient(135deg,var(--gold-light),var(--gold)); color:var(--burgundy-deep); padding:14px 38px; border-radius:999px; font-weight:700; text-decoration:none; }
+
+/* ============ RSVP ============ */
+.rsvp{ min-height:100vh; display:flex; align-items:center; justify-content:center; }
+.rsvp-bg{
+  position:absolute; inset:0; z-index:0;
+  background:
+    linear-gradient(180deg, rgba(20,4,7,.6) 0%, rgba(20,4,7,.72) 100%),
+    var(--rsvp-bg-image) center/cover no-repeat,
+    var(--burgundy-deep);
+}
+.rsvp-content{ position:relative; z-index:1; max-width:480px; width:100%; text-align:center; color:var(--beige); padding:0 20px; }
+.rsvp-content h2{ font-family:var(--serif-en); font-size:clamp(1.6rem,4.5vw,2.2rem); margin-bottom:10px; line-height:1.4; }
+html[dir="rtl"] .rsvp-content h2{ font-family:var(--serif-ar); }
+.rsvp-content > p{ color:var(--gold-light); margin-bottom:34px; }
+.rsvp-form{ background:rgba(15,3,5,.55); border:1px solid var(--gold); backdrop-filter:blur(4px); border-radius:14px; padding:36px 28px; text-align:start; color:var(--beige); }
+.rsvp-form label{ display:block; font-size:.78rem; letter-spacing:1px; color:var(--gold-light); margin-bottom:8px; }
+.rsvp-form input[type="text"], .rsvp-form textarea{
+  width:100%; border:none; border-bottom:1px solid var(--gold); background:transparent;
+  padding:8px 2px; margin-bottom:22px; font-family:inherit; font-size:1rem; color:#fff; outline:none;
+}
+.rsvp-form textarea{ resize:vertical; min-height:70px; border:1px solid var(--gold); border-radius:8px; padding:10px; }
+.rsvp-q{ font-size:.9rem; color:var(--beige-soft); margin-bottom:12px; }
+.rsvp-options{ display:flex; gap:12px; margin-bottom:24px; }
+.rsvp-options .opt{
+  flex:1; padding:13px 10px; border-radius:8px; border:1px solid var(--gold); background:transparent;
+  font-family:inherit; font-weight:600; cursor:pointer; color:var(--beige); transition:all .25s ease;
+}
+.rsvp-options .opt.selected{ background:linear-gradient(135deg,var(--gold-light),var(--gold)); color:var(--burgundy-deep); border-color:var(--gold); }
+.send-btn{
+  width:100%; padding:15px; border:none; border-radius:8px; cursor:pointer;
+  background:linear-gradient(135deg,var(--gold-light),var(--gold)); color:var(--burgundy-deep);
+  font-weight:700; font-size:1rem; font-family:inherit;
+}
+.rsvp-thanks{ margin-top:16px; font-size:.9rem; color:var(--gold-light); display:none; }
+
+/* ============ GALLERY ============ */
+.gallery{ background:var(--burgundy); text-align:center; }
+.gallery h2{ font-family:var(--script-en); font-size:clamp(2rem,5vw,2.8rem); color:var(--gold-light); margin-bottom:8px; }
+html[dir="rtl"] .gallery h2{ font-family:var(--serif-ar); font-size:clamp(1.6rem,4vw,2.1rem); }
+.gallery-sub{ color:var(--beige-soft); margin-bottom:40px; }
+
+.slideshow{ max-width:600px; margin:0 auto; }
+.slideshow-track{
+  position:relative; width:100%; height:60vh; max-height:460px; overflow:hidden;
+  border:1px solid var(--gold); border-radius:16px; background:var(--burgundy-deep);
+  box-shadow:0 16px 40px rgba(0,0,0,.3);
+}
+.slide{ position:absolute; inset:0; opacity:0; transition:opacity .7s ease-in-out; pointer-events:none; }
+.slide.active{ opacity:1; pointer-events:auto; }
+.slide img{ width:100%; height:100%; object-fit:cover; display:block; filter:sepia(.15) contrast(1.05) brightness(.92); }
+
+.slideshow-controls{ display:flex; align-items:center; justify-content:center; gap:1.4rem; margin-top:1.6rem; }
+.slide-btn{
+  width:44px; height:44px; border-radius:50%; border:1px solid var(--gold); background:transparent;
+  color:var(--beige); font-size:1.1rem; cursor:pointer; display:flex; align-items:center; justify-content:center;
+  transition:all .3s ease; font-family:inherit;
+}
+.slide-btn:hover{ background:var(--gold); color:var(--burgundy-deep); }
+.slide-dots{ display:flex; gap:8px; align-items:center; }
+.slide-dot{
+  width:8px; height:8px; border-radius:50%; background:rgba(230,207,152,.35);
+  border:1px solid var(--gold); cursor:pointer; transition:all .3s ease;
+}
+.slide-dot.active{ background:var(--gold); width:22px; border-radius:4px; }
+
+/* ============ MOBILE ADJUSTMENTS ============ */
+@media(max-width:560px){
+  .section{ padding:80px 18px; }
+  .detail-row{ align-items:flex-start; }
+  .invitation-card{ padding:0 15px; } 
+  .slideshow-track{ height:50vh; }
+  
+  /* تعديلات العد التنازلي لإجباره في صف واحد على الموبايل */
+  .countdown-grid { gap: 6px; flex-wrap: nowrap; }
+  .cd-box { min-width: 0; padding: 12px 5px; flex: 1; }
+  .cd-box span { font-size: 1.4rem; }
+  .cd-box label { font-size: 0.65rem; margin-top: 4px; }
+  .adults-box { padding: 28px 18px; }
+}
+
+/* ============ FOOTER ============ */
+.footer{ background:var(--burgundy-deep); color:var(--beige); text-align:center; padding:90px 24px; }
+.footer-quote{ font-family:var(--serif-ar); font-size:clamp(1.1rem,3vw,1.4rem); line-height:2; max-width:520px; margin:0 auto 18px; color:var(--beige-soft); }
+html[dir="ltr"] .footer-quote{ font-family:var(--serif-en); font-style:italic; }
+.footer-credit{ font-size:.85rem; color:var(--gold-light); margin-bottom:34px; }
+.footer-divider{ width:50px; height:1px; background:var(--gold); margin:0 auto 30px; }
+.footer-names{ font-family:var(--script-en); font-size:clamp(2rem,5vw,2.8rem); color:#fff; margin-bottom:14px; }
+html[dir="rtl"] .footer-names{ font-family:var(--serif-ar); font-size:clamp(1.7rem,4vw,2.2rem); }
+.footer-date{ font-size:.85rem; color:var(--gold-light); }
+</style>
+</head>
+<body>
+
+<!-- ============ INTRO SCREEN (COVER) ============ -->
+<div id="intro-screen">
+  <!-- فيديو الغلاف مع خاصية التحميل المسبق preload لسرعة الاستجابة -->
+  <video id="introVideo" src="video.mp4" playsinline muted preload="auto"></video>
+  
+  <img id="introImage" src="envelope.jpg" alt="Open Invitation">
+</div>
+
+<button class="lang-toggle" id="langToggle" aria-label="Switch language">
+  <span id="langEnLabel" class="active">EN</span>
+  <span id="langArLabel">عربي</span>
+</button>
+
+<!-- ============ HERO ============ -->
+<section id="hero" class="section hero">
+  <video id="heroVideo" autoplay muted loop playsinline>
+    <source src="candle.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="eyebrow-script" data-ar="ليلة العمر" data-en="Save The Date">ليلة العمر</p>
+    <p class="tagline tracked" data-ar="حفل زفاف" data-en="WE ARE GETTING MARRIED">حفل زفاف</p>
+    <h1 class="couple-names">
+      <span data-ar="محمد" data-en="Mohamed">محمد</span>
+      <span class="amp">&amp;</span>
+      <span data-ar="عنان" data-en="Anan">عنان</span>
+    </h1>
+    <div class="hero-divider"></div>
+    <p class="hero-date" data-ar="السبت · 17 أكتوبر 2026" data-en="Saturday · 17 October 2026">السبت · 17 أكتوبر 2026</p>
+    <p class="hero-venue tracked" data-ar="قاعة وان فيو" data-en="One View">قاعة وان فيو</p>
+  </div>
+  <div class="scroll-cue"></div>
+</section>
+
+<!-- ============ INVITATION ============ -->
+<section id="invitation" class="section invitation" style="background-image:url('back.jpg');">
+  <div class="invitation-card reveal">
+    <div class="heart-icon">♡</div>
+    <p class="invite-lead" data-ar="بكل سرور ندعوكم لحفل زفافنا" data-en="With great joy, we invite you to our wedding">بكل سرور ندعوكم لحفل زفافنا</p>
+    <p class="invite-body" data-ar="لمشاركتنا مساءً مليئًا بالحب والدفء والفرح" data-en="To share an evening filled with love, warmth, and joy">لمشاركتنا مساءً مليئًا بالحب والدفء والفرح</p>
+    <h2 class="invite-couple">
+      <span data-ar="محمد" data-en="Mohamed">محمد</span>
+      <span class="amp">&amp;</span>
+      <span data-ar="عنان" data-en="Anan">عنان</span>
+    </h2>
+    <p class="invite-closing" data-ar="ننتظر بشوق أن نحتفل بهذه البداية الجميلة محاطين بأعزّ الناس إلى قلوبنا." data-en="We look forward to celebrating this beautiful beginning surrounded by those dearest to our hearts.">ننتظر بشوق أن نحتفل بهذه البداية الجميلة محاطين بأعزّ الناس إلى قلوبنا.</p>
+    <p class="kids-notice-invite" data-ar="جنة الأطفال بيوتهم" data-en="Children's paradise is their home">جنة الأطفال بيوتهم</p>
+  </div>
+</section>
+
+<!-- ============ ADULTS ONLY SECTION ============ -->
+<section id="adults-only" class="section adults-only">
+  <div class="center reveal">
+    <div class="adults-box">
+      <p class="adults-intro" data-ar="وجودكم معنا هو أجمل ما نتمنى في يومنا الكبير 🤍<br>ولكي نقضي جميعًا أمسية هادئة ومميزة، نرجو أن تكون هذه المناسبة للكبار فقط." data-en="Your presence is our greatest wish on our big day 🤍<br>For a peaceful and special evening together, this occasion is for adults only.">وجودكم معنا هو أجمل ما نتمنى في يومنا الكبير 🤍<br>ولكي نقضي جميعًا أمسية هادئة ومميزة، نرجو أن تكون هذه المناسبة للكبار فقط.</p>
+      
+      <p class="adults-highlight" data-ar="لذلك نعتذر عن اصطحاب الأطفال،" data-en="Therefore, we respectfully apologize for not accommodating children,">لذلك نعتذر عن اصطحاب الأطفال،</p>
+      
+      <p class="adults-closing" data-ar="فجنة الأطفال بيوتهم، وفرحتنا لا تكتمل إلا بوجودكم معنا 🤍" data-en="Children's paradise is their home, and our joy is complete only with your presence 🤍">فجنة الأطفال بيوتهم، وفرحتنا لا تكتمل إلا بوجودكم معنا 🤍</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AYAH ============ -->
+<section id="ayah" class="section ayah">
+  <div class="center reveal">
+    <div class="ayah-ornament">◈</div>
+    <div class="ayah-box">
+      <p class="ayah-text">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُمْ مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً</p>
+      <p class="ayah-ref">الروم: ٢١</p>
+      <p class="ayah-translation">"Among His signs is that He created mates for you from among yourselves, so that you may find comfort in them, and He placed love and mercy between you." — Surah Ar-Rum, 21</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PARTY INFO ============ -->
+<section id="party-info" class="section party-info">
+  <div class="center reveal">
+    <p class="pi-eyebrow tracked" data-ar="معلومات حفل الزفاف" data-en="WEDDING PARTY INFO">معلومات حفل الزفاف</p>
+    <p class="pi-sub" data-ar="سيقام حفل الزفاف في:" data-en="THE WEDDING WILL TAKE PLACE AT:">سيقام حفل الزفاف في:</p>
+    <p class="pi-time" data-ar="السبت · الاستقبال 6:00 مساءً | الزفة 7:00 مساءً" data-en="Saturday · Reception 6:00 PM | Zaffa 7:00 PM">السبت · الاستقبال 6:00 مساءً | الزفة 7:00 مساءً</p>
+    <div class="pi-date-block">
+      <span class="pi-day">17</span>
+      <span class="pi-month-year" data-ar="أكتوبر<br>2026" data-en="OCTOBER<br>2026">أكتوبر<br>2026</span>
+    </div>
+    <p class="pi-countdown-label tracked" data-ar="العد التنازلي" data-en="COUNTDOWN">العد التنازلي</p>
+    <p class="pi-countdown-live" id="miniCountdown">—</p>
+    <div class="calendar">
+      <p class="calendar-title" data-ar="أكتوبر 2026" data-en="October 2026">أكتوبر 2026</p>
+      <div class="calendar-grid" id="calendarGrid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COUNTDOWN ============ -->
+<section id="countdown" class="section countdown-section">
+  <div class="center reveal">
+    <h2 data-ar="العد التنازلي" data-en="Countdown">العد التنازلي</h2>
+    <p data-ar="بانتظار اللحظة السعيدة التي يجمعنا بها القدر بكل حب..." data-en="Counting down to the happy moment that brings us together with all our love...">بانتظار اللحظة السعيدة التي يجمعنا بها القدر بكل حب...</p>
+    <div class="countdown-grid">
+      <div class="cd-box"><span id="cd-secs">00</span><label data-ar="ثانية" data-en="Seconds">ثانية</label></div>
+      <div class="cd-box"><span id="cd-mins">00</span><label data-ar="دقيقة" data-en="Minutes">دقيقة</label></div>
+      <div class="cd-box"><span id="cd-hours">00</span><label data-ar="ساعة" data-en="Hours">ساعة</label></div>
+      <div class="cd-box"><span id="cd-days">00</span><label data-ar="يوم" data-en="Days">يوم</label></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DETAILS ============ -->
+<section id="details" class="section details">
+  <div class="center reveal">
+    <h2 data-ar="تفاصيل الاحتفال" data-en="Celebration Details">تفاصيل الاحتفال</h2>
+    <p class="details-sub" data-ar="كل ما تحتاج لمعرفته لمشاركتنا فرحتنا" data-en="Everything you need to know to join our celebration">كل ما تحتاج لمعرفته لمشاركتنا فرحتنا</p>
+    <div class="details-photo">
+      <img src="https://i.pinimg.com/736x/44/2d/8b/442d8bac4df826cf7dba716f2346d2ca.jpg">
+    </div>
+    <div class="details-rows">
+      <div class="detail-row">
+        <span class="icon">📍</span>
+        <div>
+          <p class="d-label" data-ar="العنوان" data-en="Address">العنوان</p>
+          <p class="d-value" data-ar="القاهرة - أكتوبر" data-en="Cairo - October">القاهرة - أكتوبر</p>
+        </div>
+      </div>
+      <div class="detail-row">
+        <span class="icon">📅</span>
+        <div>
+          <p class="d-label" data-ar="التاريخ" data-en="Date">التاريخ</p>
+          <p class="d-value" data-ar="السبت، 17 أكتوبر 2026" data-en="Saturday, 17 October 2026">السبت، 17 أكتوبر 2026</p>
+        </div>
+      </div>
+      <div class="detail-row">
+        <span class="icon">🕖</span>
+        <div>
+          <p class="d-label" data-ar="الوقت" data-en="Time">الوقت</p>
+          <p class="d-value" data-ar="الاستقبال: 6:00 مساءً | الزفة: 7:00 مساءً (حتى 12:00 صباحاً)" data-en="Reception: 6:00 PM | Zaffa: 7:00 PM (until 12:00 AM)">الاستقبال: 6:00 مساءً | الزفة: 7:00 مساءً (حتى 12:00 صباحاً)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LOCATION ============ -->
+<section id="location" class="section location">
+  <div class="center reveal">
+    <h2 data-ar="الموقع" data-en="Location">الموقع</h2>
+    <p data-ar="قاعة وان فيو" data-en="One View">قاعة وان فيو</p>
+    <div class="map-frame">
+      <iframe loading="lazy" src="https://www.google.com/maps?q=Mountain+Rose+Hotel&output=embed"></iframe>
+    </div>
+    <a class="map-btn" target="_blank" rel="noopener" href="https://maps.app.goo.gl/bLxGdJA4TLJHr3Ct7" data-ar="افتح الخريطة" data-en="Open Map">افتح الخريطة</a>
+  </div>
+</section>
+
+<!-- ============ RSVP ============ -->
+<section id="rsvp" class="section rsvp">
+  <div class="rsvp-bg"></div>
+  <div class="rsvp-content reveal">
+    <h2 data-ar="من فضلكم أكّدوا حضوركم" data-en="Please confirm your attendance">من فضلكم أكّدوا حضوركم</h2>
+    <p data-ar="ردّكم يعني لنا الكثير." data-en="Your reply means so much to us.">ردّكم يعني لنا الكثير.</p>
+    <form class="rsvp-form" id="rsvpForm">
+      <label data-ar="اسمك" data-en="Your Name">اسمك</label>
+      <input type="text" id="rsvpName" required>
+      <p class="rsvp-q" data-ar="هل ستنضمّون لاحتفالنا؟" data-en="Will you join our celebration?">هل ستنضمّون لاحتفالنا؟</p>
+      <div class="rsvp-options">
+        <button type="button" class="opt" data-value="no" data-ar="✕ لا أستطيع الحضور" data-en="✕ Can't attend">✕ لا أستطيع الحضور</button>
+        <button type="button" class="opt selected" data-value="yes" data-ar="✓ بكل سرور" data-en="✓ Joyfully yes">✓ بكل سرور</button>
+      </div>
+      <label data-ar="رسالة (اختياري)" data-en="Message (optional)">رسالة (اختياري)</label>
+      <textarea id="rsvpMessage"></textarea>
+      <button type="submit" class="send-btn" data-ar="إرسال عبر الواتساب" data-en="Send via WhatsApp">إرسال عبر الواتساب</button>
+      <p class="rsvp-thanks" id="rsvpThanks" data-ar="شكرًا لكم، تم جاري تحويل ردكم إلى الواتساب! 💛" data-en="Thank you, redirecting your reply to WhatsApp! 💛">شكرًا لكم، تم جاري تحويل ردكم إلى الواتساب! 💛</p>
+    </form>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section id="gallery" class="section gallery">
+  <div class="center reveal">
+    <h2 data-ar="لحظات" data-en="Moments">لحظات</h2>
+    <p class="gallery-sub" data-ar="جولة سريعة في تفاصيل يومنا" data-en="A glimpse into the details of our day">جولة سريعة في تفاصيل يومنا</p>
+
+    <div class="slideshow">
+      <div class="slideshow-track" id="slideshowTrack">
+        <div class="slide active">
+          <img src="photo1.jpg" alt="Photo 1">
+        </div>
+        <div class="slide">
+          <img src="photo2.jpg" alt="Photo 2">
+        </div>
+        <div class="slide">
+          <img src="photo3.jpg" alt="Photo 3">
+        </div>
+        <div class="slide">
+          <img src="photo4.jpg" alt="Photo 4">
+        </div>
+        <div class="slide">
+          <img src="photo5.jpg" alt="Photo 5">
+        </div>
+        <div class="slide">
+          <img src="photo6.jpg" alt="Photo 6">
+        </div>
+      </div>
+
+      <div class="slideshow-controls">
+        <button class="slide-btn" type="button" onclick="changeSlide(-1)" aria-label="Previous">&#8592;</button>
+        <div class="slide-dots" id="slideDots"></div>
+        <button class="slide-btn" type="button" onclick="changeSlide(1)" aria-label="Next">&#8594;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer id="footer" class="section footer">
+  <div class="center reveal">
+    <p class="footer-quote" data-ar="الحبّ أن تجد بيتك في قلب من تحب، وتبقى فيه إلى الأبد." data-en="Love is finding your home in the heart of the one you love, and staying there forever.">الحبّ أن تجد بيتك في قلب من تحب، وتبقى فيه إلى الأبد.</p>
+    <p class="footer-credit" data-ar="من القلب — تهاني للعروسين" data-en="With love — congratulations to the couple">من القلب — تهاني للعروسين</p>
+    <div class="footer-divider"></div>
+    <h3 class="footer-names" data-ar="محمد &amp; عنان" data-en="Mohamed &amp; Anan">محمد &amp; عنان</h3>
+    <p class="footer-date" data-ar="السبت 17 أكتوبر 2026 — قاعة وان فيو" data-en="Saturday 17 October 2026 — One View">السبت 17 أكتوبر 2026 — قاعة وان فيو</p>
+  </div>
+</footer>
+
+<script>
+/* ================= INTRO SCREEN LOGIC ================= */
+const introScreen = document.getElementById('intro-screen');
+const introImage = document.getElementById('introImage');
+const introVideo = document.getElementById('introVideo');
+
+// 1. عند النقر على الصورة، يبدأ تشغيل الفيديو فوراً في الخلفية
+introImage.addEventListener('click', () => {
+  introVideo.play().catch(e => {
+    // في حالة فشل تشغيل الفيديو في متصفح معين، يفتح الموقع فوراً
+    closeIntroScreen();
+  });
+});
+
+// 2. تخرج الصورة بنعومة فقط بعد أن يبدأ الفيديو بالعرض والعمل فعلياً لمنع ظهور أي وميض نبيتي
+introVideo.addEventListener('playing', () => {
+  introImage.style.opacity = '0';
+  setTimeout(() => {
+    introImage.style.display = 'none';
+  }, 800);
+});
+
+// 3. عند انتهاء الفيديو، تختفي الشاشة بالكامل ويظهر باقي الموقع
+introVideo.addEventListener('ended', () => {
+  closeIntroScreen();
+});
+
+function closeIntroScreen() {
+  introScreen.style.opacity = '0';
+  introScreen.style.visibility = 'hidden';
+  
+  setTimeout(() => {
+    introScreen.style.display = 'none';
+    document.body.classList.add('intro-finished'); // السماح بالتمرير (Scroll) في الموقع
+  }, 1000);
+}
+
+/* ================= LANGUAGE TOGGLE ================= */
+const root = document.documentElement;
+const langToggle = document.getElementById('langToggle');
+const langEnLabel = document.getElementById('langEnLabel');
+const langArLabel = document.getElementById('langArLabel');
+
+function setLang(lang){
+  root.setAttribute('lang', lang);
+  root.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+  root.setAttribute('data-lang', lang);
+  document.querySelectorAll('[data-ar]').forEach(el => {
+    const val = lang === 'ar' ? el.getAttribute('data-ar') : el.getAttribute('data-en');
+    if (val !== null) el.innerHTML = val;
+  });
+  langEnLabel.classList.toggle('active', lang === 'en');
+  langArLabel.classList.toggle('active', lang === 'ar');
+  buildCalendar(lang);
+}
+
+langToggle.addEventListener('click', () => {
+  const current = root.getAttribute('data-lang');
+  setLang(current === 'ar' ? 'en' : 'ar');
+});
+
+/* ================= COUNTDOWN ================= */
+// Wedding date/time — Cairo time (UTC+3, no DST)
+const weddingDate = new Date('2026-10-17T18:00:00+03:00');
+
+function updateCountdown(){
+  const now = new Date();
+  let diff = weddingDate - now;
+  if (diff < 0) diff = 0;
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const mins = Math.floor((diff / (1000 * 60)) % 60);
+  const secs = Math.floor((diff / 1000) % 60);
+  const pad = n => String(n).padStart(2, '0');
+
+  document.getElementById('cd-days').textContent = pad(days);
+  document.getElementById('cd-hours').textContent = pad(hours);
+  document.getElementById('cd-mins').textContent = pad(mins);
+  document.getElementById('cd-secs').textContent = pad(secs);
+
+  const lang = root.getAttribute('data-lang');
+  const mini = document.getElementById('miniCountdown');
+  mini.textContent = lang === 'ar'
+    ? `${days} يوم، ${hours} ساعة، ${mins} دقيقة، ${secs} ثانية`
+    : `${days}d ${hours}h ${mins}m ${secs}s`;
+}
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+/* ================= CALENDAR (October 2026) ================= */
+function buildCalendar(lang){
+  const grid = document.getElementById('calendarGrid');
+  grid.innerHTML = '';
+  const dowAr = ['إث','ثل','أر','خ','ج','س','أح'];
+  const dowEn = ['Mo','Tu','We','Th','Fr','Sa','Su'];
+  const dow = lang === 'ar' ? dowAr : dowEn;
+  dow.forEach(d => {
+    const el = document.createElement('div');
+    el.className = 'dow';
+    el.textContent = d;
+    grid.appendChild(el);
+  });
+
+  const year = 2026, month = 9; // October (0-indexed)
+  const firstDayJs = new Date(year, month, 1).getDay(); // 0=Sun..6=Sat
+  const mondayOffset = (firstDayJs + 6) % 7; // convert to Monday-first index
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  for (let i = 0; i < mondayOffset; i++) {
+    grid.appendChild(document.createElement('div'));
+  }
+  for (let d = 1; d <= daysInMonth; d++) {
+    const cell = document.createElement('div');
+    cell.className = 'day' + (d === 17 ? ' marked' : '');
+    cell.textContent = d;
+    grid.appendChild(cell);
+  }
+}
+
+/* ================= RSVP OPTIONS & WHATSAPP INTEGRATION ================= */
+document.querySelectorAll('.rsvp-options .opt').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.rsvp-options .opt').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+  });
+});
+
+document.getElementById('rsvpForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const name = document.getElementById('rsvpName').value.trim();
+  const message = document.getElementById('rsvpMessage').value.trim();
+  const attending = document.querySelector('.rsvp-options .opt.selected')?.dataset.value || 'yes';
+
+  const RSVP_WHATSAPP_NUMBER = '966547273636'; 
+  const lang = root.getAttribute('data-lang');
+  
+  let text = '';
+  if (lang === 'ar') {
+    const statusText = attending === 'yes' ? 'يشرفني الحضور بكل سرور 🎉' : 'أعتذر عن الحضور مع خالص تحياتي 🌸';
+    const msgText = message ? message : 'لا توجد رسالة';
+    text = `✨ *تأكيد حضور حفل زفاف* ✨\n` +
+           `----------------------------------\n` +
+           `👤 *الاسم:* ${name}\n` +
+           `💌 *حالة الحضور:* ${statusText}\n` +
+           `💬 *الرسالة:* ${msgText}\n` +
+           `----------------------------------\n` +
+           `مع أطيب التمنيات للعروسين بالعادة والهناء! ❤️`;
+  } else {
+    const statusText = attending === 'yes' ? 'Joyfully Attending 🎉' : 'Regretfully Declining 🌸';
+    const msgText = message ? message : 'None';
+    text = `✨ *Wedding RSVP Confirmation* ✨\n` +
+           `----------------------------------\n` +
+           `👤 *Name:* ${name}\n` +
+           `💌 *Attendance:* ${statusText}\n` +
+           `💬 *Message:* ${msgText}\n` +
+           `----------------------------------\n` +
+           `Wishing the happy couple a lifetime of love! ❤️`;
+  }
+  
+  window.open(`https://wa.me/${RSVP_WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
+
+  document.getElementById('rsvpThanks').style.display = 'block';
+  this.reset();
+  document.querySelectorAll('.rsvp-options .opt').forEach(b => b.classList.remove('selected'));
+  document.querySelector('.rsvp-options .opt[data-value="yes"]').classList.add('selected');
+});
+
+/* ================= GALLERY SLIDESHOW ================= */
+let currentSlide = 0;
+let slideshowTimer = null;
+
+function initSlideshow(){
+  const slides = document.querySelectorAll('.slide');
+  const dotsContainer = document.getElementById('slideDots');
+  if (!slides.length || !dotsContainer) return;
+
+  slides.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'slide-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => goToSlide(i));
+    dotsContainer.appendChild(dot);
+  });
+
+  slideshowTimer = setInterval(() => changeSlide(1), 4000);
+}
+
+function goToSlide(index){
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.slide-dot');
+  if (!slides.length) return;
+
+  slides[currentSlide].classList.remove('active');
+  dots[currentSlide].classList.remove('active');
+
+  currentSlide = (index + slides.length) % slides.length;
+
+  slides[currentSlide].classList.add('active');
+  dots[currentSlide].classList.add('active');
+
+  clearInterval(slideshowTimer);
+  slideshowTimer = setInterval(() => changeSlide(1), 4000);
+}
+
+window.changeSlide = function(dir){
+  goToSlide(currentSlide + dir);
+};
+
+initSlideshow();
+
+/* ================= SCROLL REVEAL ================= */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('in');
+  });
+}, { threshold: 0.2 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+/* ================= HERO VIDEO AUTOPLAY FIX (iOS Safari) ================= */
+const heroVideo = document.getElementById('heroVideo');
+if (heroVideo) {
+  const tryPlay = () => heroVideo.play().catch(() => {});
+  tryPlay();
+  document.addEventListener('touchstart', tryPlay, { once: true });
+  document.addEventListener('click', tryPlay, { once: true });
+}
+
+/* ================= INIT ================= */
+setLang('en');
+</script>
+</body>
+</html>
